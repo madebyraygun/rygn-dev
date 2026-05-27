@@ -1,7 +1,23 @@
+const crypto = require("crypto");
+const fs = require("fs");
 const series = require("./src/_data/series.json");
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/static");
+
+  // Cache-bust an asset with a short content hash: /static/style.css?v=<hash>
+  eleventyConfig.addFilter("bust", (urlPath) => {
+    try {
+      const hash = crypto
+        .createHash("md5")
+        .update(fs.readFileSync(`src${urlPath}`))
+        .digest("hex")
+        .slice(0, 8);
+      return `${urlPath}?v=${hash}`;
+    } catch (e) {
+      return urlPath;
+    }
+  });
 
   eleventyConfig.addFilter("postDate", (value) =>
     new Date(value).toISOString().slice(0, 10)
