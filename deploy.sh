@@ -17,13 +17,13 @@ SSH_PORT="${DEPLOY_PORT:-22}"
 #   ./deploy.sh             build, then deploy        (https://rygn.dev/)
 #   ./deploy.sh --dry-run   build, then show what would change (transfers nothing)
 
-dry=()
-[[ "${1:-}" == "--dry-run" ]] && dry=(--dry-run)
+dry=
+[[ "${1:-}" == "--dry-run" ]] && dry=--dry-run
 
 rm -rf _site
 npm run build
 
-rsync -avz --delete "${dry[@]}" \
+rsync -avz --delete ${dry:+"$dry"} \
   -e "ssh -p ${SSH_PORT}" \
   --exclude '.DS_Store' \
   _site/ "${HOST}:${REMOTE_PATH%/}/"
