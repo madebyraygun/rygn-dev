@@ -1,0 +1,11 @@
+{
+  "craft-on-dokku": {
+    "title": "Hosting Craft CMS on a Bare VPS",
+    "indexUrl": "/series/craft-on-dokku/",
+    "parts": [
+      { "label": "Part 1", "title": "Why We Host Craft CMS on Dokku and a $20 VPS", "url": "/posts/why-we-host-craft-on-dokku/" },
+      { "label": "Part 2", "title": "A Dokku-for-Craft Starter Guide", "url": "/posts/dokku-craft-starter-guide/" },
+      { "label": "Part 3", "title": "remote: A Thin CLI That Makes Dokku and Craft CMS Feel Local", "url": "/posts/remote-cli-makes-dokku-feel-local/" }
+    ]
+  }
+}

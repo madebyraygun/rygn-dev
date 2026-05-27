@@ -1,0 +1,16 @@
+---
+layout: base.html
+---
+<article class="post">
+  <h1>{{ title }}</h1>
+  <p class="post-meta">{{ date | postDate }} &middot; by {{ author }}</p>
+  {{ content }}
+  {% assign newer = collections.posts | getPreviousCollectionItem %}
+  {% assign older = collections.posts | getNextCollectionItem %}
+  {% if newer or older %}
+  <nav class="post-nav">
+    {% if newer %}<a href="{{ newer.url }}">&larr; Newer: {{ newer.data.title }}</a>{% else %}<span></span>{% endif %}
+    {% if older %}<a href="{{ older.url }}">Older: {{ older.data.title }} &rarr;</a>{% else %}<span></span>{% endif %}
+  </nav>
+  {% endif %}
+</article>

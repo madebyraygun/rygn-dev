@@ -1,0 +1,22 @@
+{
+  "name": "rygn-dev-blog",
+  "version": "1.0.0",
+  "description": "Rygn Dev Blog",
+  "author": "madebyraygun.com",
+  "license": "MIT",
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madebyraygun/rygn-dev.git"
+  },
+  "engines": {
+    "node": ">=20.0"
+  },
+  "keywords": [],  
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy"
+  }
+}

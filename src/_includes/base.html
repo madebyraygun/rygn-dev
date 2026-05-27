@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="color-scheme" content="light dark" />
+        <title>
+            {% if title %}{{ title }} · Raygun Dev Notes{% else %}Raygun Dev
+            Notes{% endif %}
+        </title>
+        {% raw %}
+        <script>
+            (function () {
+                try {
+                    var saved = localStorage.getItem("theme");
+                    var theme =
+                        saved ||
+                        (window.matchMedia("(prefers-color-scheme: dark)")
+                            .matches
+                            ? "dark"
+                            : "light");
+                    document.documentElement.dataset.theme = theme;
+                } catch (e) {}
+            })();
+        </script>
+        {% endraw %}
+        <link rel="stylesheet" href="/static/style.css" />
+    </head>
+    <body>
+        <header class="masthead">
+            <a href="/">Raygun Dev Notes</a>
+            <button
+                id="theme-toggle"
+                class="theme-toggle"
+                type="button"
+                aria-label="Toggle color theme"
+            ></button>
+        </header>
+        <main>{{ content }}</main>
+        <footer class="site-footer">
+            <p>
+                &copy; 2026 Raygun &middot; Made in San Diego, CA by
+                <a href="https://madebyraygun.com">Raygun</a>
+            </p>
+        </footer>
+        {% raw %}
+        <script>
+            (function () {
+                var root = document.documentElement;
+                var btn = document.getElementById("theme-toggle");
+                function render() {
+                    btn.textContent =
+                        root.dataset.theme === "dark" ? "☀ light" : "☾ dark";
+                }
+                function apply(next) {
+                    root.dataset.theme = next;
+                    try {
+                        localStorage.setItem("theme", next);
+                    } catch (e) {}
+                    render();
+                }
+                render();
+                btn.addEventListener("click", function () {
+                    var next = root.dataset.theme === "dark" ? "light" : "dark";
+                    if (document.startViewTransition) {
+                        document.startViewTransition(function () {
+                            apply(next);
+                        });
+                    } else {
+                        apply(next);
+                    }
+                });
+            })();
+        </script>
+        {% endraw %}
+    </body>
+</html>

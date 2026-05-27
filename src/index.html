@@ -1,0 +1,26 @@
+---
+layout: base.html
+pagination:
+  data: collections.posts
+  size: 5
+  alias: postlist
+permalink: "{% if pagination.pageNumber == 0 %}/{% else %}/page/{{ pagination.pageNumber | plus: 1 }}/{% endif %}"
+---
+<ul class="post-list">
+  {% for post in postlist %}
+  <li class="post-list-item">
+    <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+    <p class="post-meta">{{ post.date | postDate }} &middot; by {{ post.data.author }}</p>
+    <p class="excerpt">{{ post.data.description }}</p>
+    <p class="read-more"><a href="{{ post.url }}">read more &rarr;</a></p>
+  </li>
+  {% endfor %}
+</ul>
+{% assign totalPages = pagination.pages | size %}
+{% if totalPages > 1 %}
+<nav class="pagination">
+  {% if pagination.href.previous %}<a href="{{ pagination.href.previous }}">&larr; Newer</a>{% else %}<span></span>{% endif %}
+  <span>Page {{ pagination.pageNumber | plus: 1 }} of {{ totalPages }}</span>
+  {% if pagination.href.next %}<a href="{{ pagination.href.next }}">Older &rarr;</a>{% else %}<span></span>{% endif %}
+</nav>
+{% endif %}
