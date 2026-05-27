@@ -17,6 +17,8 @@
   "keywords": [],  
   "scripts": {
     "dev": "eleventy --serve",
-    "build": "eleventy"
+    "build": "eleventy",
+    "deploy": "bash deploy.sh",
+    "deploy:dry": "bash deploy.sh --dry-run"
   }
 }
