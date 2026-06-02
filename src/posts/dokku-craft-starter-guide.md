@@ -2,8 +2,8 @@
 title: "A Dokku-for-Craft Starter Guide: From a Fresh VPS to a Deployed Site"
 date: 2026-05-24
 description: "The hands-on part of the series: nine steps from a bare Ubuntu VPS to a deployed Craft site with MySQL, Redis, automatic TLS, a real queue worker, and a staging environment alongside it."
+seriesKey: craft-on-dokku
 ---
-{% seriesNav "craft-on-dokku", page.url %}
 
 [The first post in this series](/posts/why-we-host-craft-on-dokku/) made the case for hosting Craft CMS on Dokku and a bare VPS. This one is the hands-on part: how to take a fresh Linux box and a Craft project in git, and end up with a deployed site that has MySQL, Redis, TLS, and a real queue worker. [The next post](/posts/remote-cli-makes-dokku-feel-local/) covers the CLI we use to live with it day to day.
 

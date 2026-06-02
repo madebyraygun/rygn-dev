@@ -4,6 +4,7 @@ const series = require("./src/_data/series.json");
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/static");
+  eleventyConfig.addPassthroughCopy("src/admin");
 
   // Cache-bust an asset with a short content hash: /static/style.css?v=<hash>
   eleventyConfig.addFilter("bust", (urlPath) => {
