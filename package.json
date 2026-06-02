@@ -16,7 +16,7 @@
   },
   "keywords": [],  
   "scripts": {
-    "dev": "eleventy --serve",
+    "dev": "eleventy --serve --port=8090",
     "build": "eleventy",
     "deploy": "bash deploy.sh",
     "deploy:dry": "bash deploy.sh --dry-run"
