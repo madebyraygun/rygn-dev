@@ -5,7 +5,7 @@
   "author": "madebyraygun.com",
   "license": "MIT",
   "dependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "@11ty/eleventy": "^3.1.5"
   },
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
   "engines": {
     "node": ">=20.0"
   },
-  "keywords": [],  
+  "keywords": [],
   "scripts": {
     "dev": "eleventy --serve --port=8090",
     "build": "eleventy",
