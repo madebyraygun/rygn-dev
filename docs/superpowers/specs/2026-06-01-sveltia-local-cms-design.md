@@ -39,12 +39,15 @@ bodies become pure markdown and WYSIWYG round-trips cleanly.
 - **`src/_includes/post.html`** — render the nav from frontmatter. Between the
   `post-meta` line and `{{ content }}`, add:
   ```liquid
-  {% if series %}{% seriesNav series, page.url %}{% endif %}
+  {% if seriesKey %}{% seriesNav seriesKey, page.url %}{% endif %}
   ```
+  The frontmatter key is `seriesKey`, not `series`: `src/_data/series.json`
+  registers a global Eleventy variable named `series` (the series-definition
+  object) that would shadow a `series` frontmatter key and suppress the nav.
 - **The 3 craft-on-dokku posts**
   (`why-we-host-craft-on-dokku.md`, `dokku-craft-starter-guide.md`,
   `remote-cli-makes-dokku-feel-local.md`) — delete the inline `seriesNav` line
-  from the body and add `series: craft-on-dokku` to the frontmatter.
+  from the body and add `seriesKey: craft-on-dokku` to the frontmatter.
 - The existing `seriesNav` shortcode already takes a key + `page.url` and works
   the same whether the key is a literal or a variable. Generated HTML is
   unchanged.
@@ -95,7 +98,8 @@ collections:
       - { name: title, widget: string }
       - { name: date, widget: datetime, format: "YYYY-MM-DD", time_format: false }
       - { name: description, widget: text }
-      - name: series
+      - name: seriesKey
+        label: Series
         widget: select
         required: false
         options:
@@ -123,18 +127,18 @@ production. The local backend can't edit live-server files anyway, but this keep
 - `author`, `layout`, `tags` are intentionally **not** CMS fields — they come
   from `src/posts/posts.json` directory defaults at build time. New posts stay
   clean and match existing files.
-- The `series` select is hardcoded because series are rare. Adding a future
+- The `seriesKey` select is hardcoded because series are rare. Adding a future
   series means adding one `options` line. (It is not modeled as a `relation`
   against `series.json` — that data file is out of scope and interdependent with
   the nav.)
-- `series` is optional; an empty value renders no nav (`{% if series %}` treats
-  empty as falsy).
+- `seriesKey` is optional; an empty value renders no nav (`{% if seriesKey %}`
+  treats empty as falsy).
 
 ## Verification
 
 - `npm run dev`, open `http://localhost:8080/admin/` in Chrome, choose "work with
   local repository" / grant folder access, confirm the 3 existing posts list and
-  open with populated fields including the correct `series` value.
+  open with populated fields including the correct `seriesKey` value.
 - Edit a post body in rich-text mode, save, confirm the on-disk markdown is
   clean and the rendered post is unchanged (`npm run build`, diff `_site`).
 - Create a new test post, confirm filename/slug and frontmatter shape match

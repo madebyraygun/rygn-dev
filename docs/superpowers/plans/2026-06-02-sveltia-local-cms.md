@@ -56,20 +56,22 @@ layout: base.html
 <article class="post">
   <h1>{{ title }}</h1>
   <p class="post-meta">{{ date | postDate }} &middot; by {{ author }}</p>
-  {% if series %}{% seriesNav series, page.url %}{% endif %}
+  {% if seriesKey %}{% seriesNav seriesKey, page.url %}{% endif %}
   {{ content }}
 ```
 Leave the rest of the file (the prev/next `post-nav` block and closing tags) unchanged.
 
+**Note:** the frontmatter key is `seriesKey`, NOT `series`. `src/_data/series.json` registers a global Eleventy variable named `series` (the series-definition object) which would shadow a `series` frontmatter key and break the nav. `seriesKey` avoids the collision.
+
 - [ ] **Step 3: Move the shortcode into frontmatter in all three posts**
 
-For each of the three files, delete body line 6 (`{% seriesNav "craft-on-dokku", page.url %}`) and add `series: craft-on-dokku` as the last frontmatter key. After editing, the top of each file must read:
+For each of the three files, delete body line 6 (`{% seriesNav "craft-on-dokku", page.url %}`) and add `seriesKey: craft-on-dokku` as the last frontmatter key. After editing, the top of each file must read:
 ```markdown
 ---
 title: "..."
 date: ...
 description: "..."
-series: craft-on-dokku
+seriesKey: craft-on-dokku
 ---
 
 <first body paragraph>
@@ -151,7 +153,8 @@ collections:
       - { name: title, widget: string }
       - { name: date, widget: datetime, format: "YYYY-MM-DD", time_format: false }
       - { name: description, widget: text }
-      - name: series
+      - name: seriesKey
+        label: Series
         widget: select
         required: false
         options:
@@ -180,7 +183,7 @@ Expected: prints `admin OK`.
 Run `npm run dev`, then in a Chromium browser (Chrome/Edge/Arc) open `http://localhost:8080/admin/`. Choose the local-repository / "work with local repository" option and grant access to the project folder when prompted.
 Expected:
 - The Posts collection lists the 3 existing posts.
-- Opening a post shows populated `title`, `date`, `description`, and `series` = "Hosting Craft CMS on a Bare VPS", with the body rendered in the rich-text (WYSIWYG) editor and a raw-mode toggle available.
+- Opening a post shows populated `title`, `date`, `description`, and `Series` = "Hosting Craft CMS on a Bare VPS", with the body rendered in the rich-text (WYSIWYG) editor and a raw-mode toggle available.
 Stop the dev server when done (Ctrl-C).
 
 - [ ] **Step 6: Round-trip check — edit and save does not corrupt a file**
@@ -189,7 +192,7 @@ In the CMS, open `why-we-host-craft-on-dokku`, make a trivial body edit in rich-
 ```bash
 git diff src/posts/why-we-host-craft-on-dokku.md
 ```
-Expected: no diff (the file round-trips cleanly through the editor). If frontmatter key order or body markdown changed materially, note it; minor frontmatter reordering by the CMS is acceptable as long as `title`/`date`/`description`/`series` values are intact and the body markdown is unchanged.
+Expected: no diff (the file round-trips cleanly through the editor). If frontmatter key order or body markdown changed materially, note it; minor frontmatter reordering by the CMS is acceptable as long as `title`/`date`/`description`/`seriesKey` values are intact and the body markdown is unchanged.
 
 - [ ] **Step 7: Commit**
 
@@ -244,7 +247,7 @@ git commit -m "Exclude /admin from production deploy"
 ## Verification (whole feature)
 
 - `npm run build` succeeds; `_site/admin/index.html` and `_site/admin/config.yml` exist.
-- `grep -rn "seriesNav" src/posts` returns nothing; the 3 posts carry `series: craft-on-dokku` in frontmatter.
+- `grep -rn "seriesNav" src/posts` returns nothing; the 3 posts carry `seriesKey: craft-on-dokku` in frontmatter.
 - Rendered post HTML is unchanged versus the Task 1 baseline (series nav present, in the same position).
 - `/admin` opens in a Chromium browser, lists Posts, edits with a WYSIWYG body, and writes clean markdown on save.
 - `./deploy.sh --dry-run` does not list any `admin/` paths.
