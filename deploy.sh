@@ -26,6 +26,7 @@ npm run build
 rsync -avz --delete ${dry:+"$dry"} \
   -e "ssh -p ${SSH_PORT}" \
   --exclude '.DS_Store' \
+  --exclude 'admin' \
   _site/ "${HOST}:${REMOTE_PATH%/}/"
 
 echo "Deployed _site/ → ${HOST}:${REMOTE_PATH%/}/  (https://rygn.dev/)"
