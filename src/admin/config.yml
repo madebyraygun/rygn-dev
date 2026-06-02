@@ -1,0 +1,28 @@
+backend:
+  name: github
+  repo: madebyraygun/rygn-dev
+  branch: main
+local_backend: true
+
+media_folder: src/static
+public_folder: /static
+
+collections:
+  - name: posts
+    label: Posts
+    folder: src/posts
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { name: title, widget: string }
+      - { name: date, widget: datetime, format: "YYYY-MM-DD", time_format: false }
+      - { name: description, widget: text }
+      - name: seriesKey
+        label: Series
+        widget: select
+        required: false
+        options:
+          - { label: "Hosting Craft CMS on a Bare VPS", value: "craft-on-dokku" }
+      - { name: body, widget: markdown, modes: [rich_text, raw] }
