@@ -2,8 +2,8 @@
 title: "remote: A Thin CLI That Makes Dokku and Craft CMS Feel Local"
 date: 2026-05-27
 description: "In the first post I made the case for hosting Craft CMS on Dokku and a bare VPS. I also admitted the one real cost: every routine operation is a verbose SSH incantation, one fat-fingered word away from running something destructive against production. This post is the fix."
+seriesKey: craft-on-dokku
 ---
-{% seriesNav "craft-on-dokku", page.url %}
 
 In [the first post in this series](/posts/why-we-host-craft-on-dokku/) I made the case for hosting Craft CMS on Dokku and a bare VPS: PaaS deploy ergonomics, full ownership of the box, and staging environments that are essentially free. I also admitted the one real cost. Every routine operation is a verbose SSH incantation, and the production command differs from the staging command by a single word. The day you fat-finger that word, you've run something destructive against the wrong environment.
 

@@ -2,8 +2,8 @@
 title: "Why We Host Craft CMS on Dokku and a $20 VPS"
 date: 2026-05-20
 description: "Every Craft CMS project eventually forces the same decision: where does this thing actually live? It's an easy question to put off during a build and a painful one to get wrong at launch."
+seriesKey: craft-on-dokku
 ---
-{% seriesNav "craft-on-dokku", page.url %}
 
 Every Craft CMS project eventually forces the same decision: where does this thing actually live? It's an easy question to put off during a build and a painful one to get wrong at launch. The usual answers all involve a trade you might not notice you're making, whether that's money, control, or the slow tax of doing everything by hand.
 
